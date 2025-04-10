@@ -1,16 +1,34 @@
 "use client"
 import React, { useState } from 'react';
+import Image from 'next/image';
+
 import { ImageIcon, PenTool, Settings, ChevronDown, Sparkles, Camera, UserPlus, Palette, Sliders, Shield, CloudCog } from 'lucide-react';
+
+type SubItem = {
+  icon: React.ReactNode; // icon is JSX, not string
+  title: string;
+  description: string;
+};
+
+type ItemType = {
+  id: string;
+  title: string;
+  icon: React.ReactNode;
+  image: string;
+  description: string;
+  items: SubItem[];
+};
+
 
 const NavDropdown = () => {
   const [activeDropdown, setActiveDropdown] = useState(null);
-  
-  const dropdownItems = [
+
+  const dropdownItems: ItemType[] = [
     {
       id: 'gallery',
       title: 'Gallery',
       icon: <ImageIcon size={18} />,
-      image: "/api/placeholder/500/300",
+      image: "/",
       description: "Explore and curate your personal reflections",
       items: [
         { icon: <Camera size={16} />, title: "Your Collection", description: "View your saved persona reflections" },
@@ -22,10 +40,10 @@ const NavDropdown = () => {
       id: 'create',
       title: 'Create Avatar',
       icon: <PenTool size={18} />,
-      image: "/api/placeholder/500/300",
+      image: "/createAvatar.avif",
       description: "Express your authentic digital self",
       items: [
-        { icon: <Palette size={16} />, title: "Persona Designer", description: "Create your digital expression" },
+        { icon: <Palette size={16} />, title: "Create Avatar", description: "Create avatar video using image" },
         { icon: <Camera size={16} />, title: "Mirror Upload", description: "Transform your photos into reflections" },
         { icon: <Sparkles size={16} />, title: "Emotion Templates", description: "Start with feeling-based presets" }
       ]
@@ -34,7 +52,7 @@ const NavDropdown = () => {
       id: 'settings',
       title: 'Settings',
       icon: <Settings size={18} />,
-      image: "/api/placeholder/500/300",
+      image: "/",
       description: "Personalize your mirror experience",
       items: [
         { icon: <Sliders size={16} />, title: "Preferences", description: "Customize your reflection settings" },
@@ -43,25 +61,26 @@ const NavDropdown = () => {
       ]
     }
   ];
-  
+
   const handleMouseEnter = (id) => {
+    console.log(id)
     setActiveDropdown(id);
   };
-  
+
   const handleMouseLeave = () => {
     setActiveDropdown(null);
   };
-  
+
   return (
     <div className="hidden md:flex items-center space-x-6">
       {dropdownItems.map((item) => (
-        <div 
+        <div
           key={item.id}
           className="relative"
           onMouseEnter={() => handleMouseEnter(item.id)}
           onMouseLeave={handleMouseLeave}
         >
-          <button 
+          <button
             className="flex items-center space-x-3 text-gray-500 hover:text-gray-200 cursor-pointer font-medium transition-colors px-3 py-2 rounded-full backdrop-blur-sm hover:shadow-sm group"
           >
             <span className="text-purple-400 group-hover:text-indigo-500 transition-colors">{item.icon}</span>
@@ -71,16 +90,22 @@ const NavDropdown = () => {
             </span>
             <ChevronDown size={16} className={`transition-transform duration-300 ${activeDropdown === item.id ? 'rotate-180' : ''}`} />
           </button>
-          
+
+
           {activeDropdown === item.id && (
             <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-screen max-w-md bg-white/90 backdrop-blur-lg rounded-xl shadow-lg overflow-hidden transition-all duration-300 z-50 border border-purple-100">
-              <div className="p-4">
+              <div className="p-4 ">
                 <div className="relative rounded-lg overflow-hidden mb-4 shadow-md">
-                  <img 
-                    src={item.image} 
-                    alt={`${item.title} illustration`} 
-                    className="w-full h-44 object-cover"
-                  />
+                  {/* {add the image in the drop down} */}
+                  <div className='h-50'>
+                    <Image
+                      src={item.image}// from public folder
+                      alt="Background"
+                      fill
+                      className="object-cover object-fit "
+                      priority
+                    />
+                  </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-indigo-500/70 to-transparent flex items-end">
                     <div className="p-4 text-white">
                       <h3 className="text-lg font-medium">{item.title}</h3>
@@ -88,12 +113,13 @@ const NavDropdown = () => {
                     </div>
                   </div>
                 </div>
-                
-                <div className="grid grid-cols-1 gap-2">
+
+                <div className="grid grid-cols-1 gap-2" >
                   {item.items.map((subItem, index) => (
-                    <a 
-                      key={index} 
-                      href="#" 
+                    <a
+                      key={index}
+                      href={`/${item.id}Avatar`}
+                      onClick={()=>console.log(item.id)}
                       className="flex items-start p-3 rounded-lg hover:bg-purple-50 transition-colors group"
                     >
                       <div className="mr-3 text-purple-400 group-hover:text-indigo-500 transition-colors mt-0.5">
@@ -107,7 +133,7 @@ const NavDropdown = () => {
                   ))}
                 </div>
               </div>
-              
+
               <div className="px-4 py-3 bg-gradient-to-r from-purple-50 to-indigo-50 border-t border-purple-100">
                 <a href="#" className="text-sm font-medium text-indigo-500 hover:text-indigo-600 transition-colors flex items-center">
                   <span>View all {item.title.toLowerCase()} options</span>
