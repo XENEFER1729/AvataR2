@@ -5,6 +5,13 @@ import { Menu, X, Home, Heart, MessageCircle, LogIn } from 'lucide-react';
 // import Image from 'next/image';
 import NavDropdown from './NavDropdown';
 
+type MobileNavLinkProps = {
+    href: string;
+    icon: React.ReactNode;
+    text: string;
+    isButton?: boolean; // <-- optional prop
+};
+
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [activePage, setActivePage] = useState("Home");
@@ -36,39 +43,7 @@ const Navbar = () => {
                     <div className="flex items-center space-x-3 group">
                         <div className="relative w-12 h-12 overflow-hidden rounded-lg shadow-lg transition-all duration-300 group-hover:scale-105">
                             {/* Custom SVG Logo */}
-                            <svg
-                                viewBox="0 0 100 100"
-                                className="w-full h-full bg-gradient-to-br from-blue-500 to-purple-600 p-2"
-                            >
-                                {/* Avatar face outline */}
-                                <circle cx="50" cy="50" r="35" fill="white" opacity="0.9" />
-
-                                {/* Stylized 'A' letter made of gradients */}
-                                <path
-                                    d="M35 70 L50 30 L65 70 M40 55 L60 55"
-                                    stroke="url(#avatarGradient)"
-                                    strokeWidth="8"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    fill="none"
-                                />
-
-                                {/* Digital circuit pattern in background */}
-                                <path
-                                    d="M20 20 L30 20 L30 30 M70 20 L80 20 L80 30 M20 80 L30 80 L30 70 M70 80 L80 80 L80 70"
-                                    stroke="rgba(255,255,255,0.5)"
-                                    strokeWidth="2"
-                                    fill="none"
-                                />
-
-                                {/* Define gradients */}
-                                <defs>
-                                    <linearGradient id="avatarGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" stopColor="#3b82f6" />
-                                        <stop offset="100%" stopColor="#8b5cf6" />
-                                    </linearGradient>
-                                </defs>
-                            </svg>
+                            {/* place Icon here */}
                         </div>
                         <h1
                             className="text-2xl font-light tracking-wider text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-indigo-500 cursor-pointer transition-all duration-500 group-hover:from-purple-500 group-hover:to-indigo-600"
@@ -142,7 +117,7 @@ const NavLink = ({ href, icon, text, activePage, setActivePage }: NavLinkProps) 
 );
 
 
-const MobileNavLink = ({ href, icon, text, isButton }) => (
+const MobileNavLink = ({ href, icon, text, isButton }:MobileNavLinkProps) => (
     <a
         href={href}
         className={`flex items-center space-x-3 font-medium transition-colors p-3 rounded-full
