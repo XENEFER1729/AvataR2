@@ -1,4 +1,3 @@
-
 "use client"
 import React, { useState, useEffect } from 'react';
 import { Menu, X, Home, Heart, MessageCircle, LogIn } from 'lucide-react';
@@ -35,7 +34,7 @@ const Navbar = () => {
     };
 
     return (
-        <nav className={`sticky top-0 z-50 transition-all duration-500 ${scrolled ? 'bg-white/80 backdrop-blur-lg shadow-lg' : 'bg-transparent'}`}>
+        <nav className={`sticky top-0 z-50 transition-all duration-500 ${scrolled ? ' backdrop-blur-lg shadow-lg' : 'bg-transparent'}`}>
             <div className="container mx-auto p-4">
                 <div className="flex justify-between items-center">
                     {/* Logo and Title */}
@@ -77,7 +76,7 @@ const Navbar = () => {
                 {/* Mobile Navigation Menu */}
                 {isMenuOpen && (
                     <div className="md:hidden mt-4 pt-4 border-t border-gray-200/50 animate-fadeIn">
-                        <div className="flex flex-col space-y-3 bg-white/60 backdrop-blur-md rounded-xl p-4 shadow-lg ">
+                        <div className="flex flex-col space-y-3 bg-white  rounded-xl p-4 shadow-lg justify-center">
                             <MobileNavLink href="#" icon={<Home size={16} />} text="Home" />
                             <MobileNavLink href="#" icon={<Heart size={16} />} text="Reflections" />
                             <MobileNavLink href="#" icon={<MessageCircle size={16} />} text="Connect" />
