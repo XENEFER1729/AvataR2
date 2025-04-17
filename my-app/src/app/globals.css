@@ -1,5 +1,4 @@
 @import "tailwindcss";
-<<<<<<< HEAD
 @layer base {
   :root {
     --sidebar-background: 0 0% 98%;
@@ -25,7 +24,6 @@
 }
 
 
-=======
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -147,4 +145,3 @@
     @apply bg-background text-foreground;
   }
 }
->>>>>>> 0aa6ada (home page)

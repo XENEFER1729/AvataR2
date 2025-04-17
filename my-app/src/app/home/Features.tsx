@@ -3,23 +3,33 @@
 
 import React from 'react';
 import { Sparkles, Wand2, Shield, ZoomIn, Clock, Download } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface FeatureCardProps {
   icon: React.ReactNode;
   title: string;
   description: string;
+  index: number;
 }
 
-const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description }) => {
+const FeatureCard: React.FC<FeatureCardProps> = ({ icon, title, description, index }) => {
   return (
-    <div className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 relative z-10 group hover:scale-[1.03] ">
-      <div className="absolute inset-0 bg-gradient-to-br from-purple-50 to-transparent dark:from-purple-900/10 dark:to-transparent opacity-0 group-hover:opacity-100 transition-all duration-300 rounded-xl"></div>
-      <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 mb-4 relative group-hover:scale-[1.14] transition-all ease-linear">
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ 
+        duration: 0.6, 
+        delay: index * 0.1,
+      }}
+      className="p-6 bg-white dark:bg-gray-800 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-gray-100 dark:border-gray-700 relative z-10 group hover:scale-[1.03]"
+    >
+      <div className="w-12 h-12 flex items-center justify-center rounded-lg bg-purple-100 dark:bg-purple-900 text-purple-600 dark:text-purple-300 mb-4 relative group-hover:scale-[1.21] transition-all ease-linear">
         {icon}
       </div>
       <h3 className="text-xl font-semibold text-gray-900 dark:text-white mb-2 relative">{title}</h3>
       <p className="text-gray-600 dark:text-gray-300 relative">{description}</p>
-    </div>
+    </motion.div>
   );
 };
 
@@ -61,39 +71,40 @@ const Features: React.FC = () => {
     <section id="features" className="relative py-16 md:py-24 bg-gray-50 dark:bg-gray-900 transition-colors duration-300 overflow-hidden">
       {/* Background elements */}
       <div className="absolute w-full h-full top-0 left-0 overflow-hidden -z-10">
-        {/* Abstract shapes */}
-        <div className="absolute top-10 right-0 w-1/3 h-1/3 bg-purple-200/30 dark:bg-purple-800/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-0 left-10 w-1/4 h-1/4 bg-purple-300/20 dark:bg-purple-700/10 rounded-full blur-2xl"></div>
-        
-        {/* Subtle grid pattern */}
-        <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] bg-repeat opacity-5"></div>
-        
+
         {/* Logo watermark */}
         <div className="absolute bottom-10 right-10 opacity-5 dark:opacity-[0.02]">
-          <svg width="200" height="200" viewBox="0 0 100 100" className="text-purple-900 dark:text-purple-300">
+          {/* <svg width="200" height="200" viewBox="0 0 100 100" className="text-purple-900 dark:text-purple-300">
             <path d="M50 10 C70 10, 90 30, 90 50 C90 70, 70 90, 50 90 C30 90, 10 70, 10 50 C10 30, 30 10, 50 10 Z" fill="none" stroke="currentColor" strokeWidth="2"></path>
             <path d="M30 40 L45 60 L70 30" fill="none" stroke="currentColor" strokeWidth="3"></path>
-          </svg>
+          </svg> */}
         </div>
       </div>
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-        <div className="text-center mb-12 md:mb-16">
+        <motion.div 
+          className="text-center mb-12 md:mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white">
             Advanced <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-purple-400 dark:from-purple-400 dark:to-purple-200">Features</span>
           </h2>
           <p className="mt-4 text-xl text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Everything you need to create stunning, professional realistic avatars
           </p>
-        </div>
+        </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 ">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {features.map((feature, index) => (
             <FeatureCard
               key={index}
               icon={feature.icon}
               title={feature.title}
               description={feature.description}
+              index={index}
             />
           ))}
         </div>

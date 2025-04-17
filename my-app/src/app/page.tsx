@@ -1,28 +1,7 @@
-<<<<<<< HEAD
 "use client"
 
 import React from "react";
 import { toast } from "sonner"
-// import { Button } from "@/components/ui/button"
-
-
-export default function Home() {
-  return (
-    <div>
-      <button
-        onClick={() =>
-          toast("Event has been created", {
-            description: "Sunday, December 03, 2023 at 9:00 AM",
-            action: {
-              label: "Undo",
-              onClick: () => console.log("Undo"),
-            },
-          })
-        }
-      >
-        Show Toast
-      </button>
-=======
 // src/app/page.tsx
 import Hero from './home/Hero1'
 import Features from './home/Features'
@@ -32,13 +11,29 @@ import Testimonials from './home/Testimonials'
 import CallToAction from './home/CallToAction'
 import Footer from './home/Footer'
 import Header from './home/Header'
+import Navbar from './home/Navbar';
+// import { Button } from "@/components/ui/button"
+
 
 export default function Home() {
   return (
+    <div>
+      {/* <button
+        onClick={() =>
+          toast("Event has been created", {
+            description: "Sunday, December 03, 2023 at 9:00 AM",
+            action: {
+              label: "Undo",
+              onClick: () => console.log("Undo"),
+            },
+          })
+        }>
+      </button> */}
     <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
-      <Header />
+    <Navbar />
       
       <main>
+        
         <Hero />
         <Features />
         <Showcase />
@@ -48,7 +43,7 @@ export default function Home() {
       </main>
 
       <Footer />
->>>>>>> 0aa6ada (home page)
     </div>
-  );
+    </div>
+  )
 }

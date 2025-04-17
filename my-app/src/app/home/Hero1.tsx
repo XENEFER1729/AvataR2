@@ -7,19 +7,6 @@ import Image from 'next/image';
 const Hero1: React.FC = () => {
   return (
     <section className="relative py-16 md:py-24 overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0 -z-10">
-        {/* Abstract background pattern */}
-        <div className="absolute inset-0 bg-gradient-to-br from-white to-purple-50 dark:from-gray-900 dark:to-purple-950 transition-colors duration-300"></div>
-        
-        {/* Abstract purple circles */}
-        <div className="absolute top-20 right-1/4 w-64 h-64 bg-purple-300 dark:bg-purple-800 rounded-full opacity-20 blur-3xl"></div>
-        <div className="absolute bottom-10 left-1/3 w-80 h-80 bg-purple-400 dark:bg-purple-700 rounded-full opacity-10 blur-3xl"></div>
-        
-        {/* Grid pattern overlay */}
-        <div className="absolute inset-0 bg-[url('/grid-pattern.svg')] bg-center opacity-30 dark:opacity-10"></div>
-      </div>
-
       <div className="container relative mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
           <div className="text-center lg:text-left">
@@ -57,23 +44,11 @@ const Hero1: React.FC = () => {
               <div className="p-4 h-full flex items-center justify-center">
                 {/* Hero image - realistic avatar */}
                 <div className="relative w-full h-full rounded-xl overflow-hidden">
-                  <Image 
-                    src="/api/placeholder/800/600" 
-                    alt="Ultra-realistic AI Generated Avatar" 
-                    fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover rounded-xl"
-                    priority
-                  />
                   <div className="absolute inset-0 bg-gradient-to-tr from-purple-600/30 to-transparent rounded-xl"></div>
                 </div>
               </div>
             </div>
             {/* Decorative elements */}
-            <div className="absolute -bottom-6 -right-6 w-32 h-32 bg-purple-400 dark:bg-purple-700 rounded-full opacity-30 blur-2xl transition-colors duration-300"></div>
-            <div className="absolute top-1/2 -left-8 transform -translate-y-1/2 hidden lg:block">
-              <div className="w-16 h-16 bg-purple-500 dark:bg-purple-400 opacity-20 rounded-full"></div>
-            </div>
           </div>
         </div>
       </div>
