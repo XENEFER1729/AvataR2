@@ -21,15 +21,9 @@ type ItemType = {
 
 
 const NavDropdown = () => {
-<<<<<<< HEAD
   const [activeDropdown, setActiveDropdown] = useState(null);
 
   const dropdownItems: ItemType[] = [
-=======
- const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  
-  const dropdownItems = [
->>>>>>> 0aa6ada (home page)
     {
       id: 'gallery',
       title: 'Gallery',
@@ -43,15 +37,15 @@ const NavDropdown = () => {
       ]
     },
     {
-      id: 'create',
-      title: 'Create Avatar',
+      id: 'dashboard',
+      title: 'Create',
       icon: <PenTool size={18} />,
       image: "/createAvatar.avif",
       description: "Express your authentic digital self",
       items: [
         { icon: <Palette size={16} />, title: "Create Avatar", description: "Create avatar video using image" },
-        { icon: <Camera size={16} />, title: "Mirror Upload", description: "Transform your photos into reflections" },
-        { icon: <Sparkles size={16} />, title: "Emotion Templates", description: "Start with feeling-based presets" }
+        { icon: <Camera size={16} />, title: "Text To Speech", description: "transform your text into speech" },
+        // { icon: <Sparkles size={16} />, title: "Emotion Templates", description: "Start with feeling-based presets" }
       ]
     },
     {
@@ -63,19 +57,13 @@ const NavDropdown = () => {
       items: [
         { icon: <Sliders size={16} />, title: "Preferences", description: "Customize your reflection settings" },
         { icon: <Shield size={16} />, title: "Privacy", description: "Control your digital boundaries" },
-        { icon: <CloudCog size={16} />, title: "Mirror Sync", description: "Manage your persona across devices" }
+        // { icon: <CloudCog size={16} />, title: "Mirror Sync", description: "Manage your persona across devices" }
       ]
     }
   ];
-<<<<<<< HEAD
 
   const handleMouseEnter = (id) => {
     console.log(id)
-=======
-  
-  
-  const handleMouseEnter = (id:string) => {
->>>>>>> 0aa6ada (home page)
     setActiveDropdown(id);
   };
 
@@ -130,7 +118,7 @@ const NavDropdown = () => {
                   {item.items.map((subItem, index) => (
                     <a
                       key={index}
-                      href={`/${item.id}Avatar`}
+                      href={`/${item.id}`}
                       onClick={()=>console.log(item.id)}
                       className="flex items-start p-3 rounded-lg hover:bg-purple-50 transition-colors group"
                     >
