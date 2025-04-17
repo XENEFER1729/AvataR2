@@ -46,15 +46,15 @@ const NavDropdown = () => {
       ]
     },
     {
-      id: 'create',
-      title: 'Create Avatar',
+      id: 'dashboard',
+      title: 'Create',
       icon: <PenTool size={18} />,
       image: "/createAvatar.avif",
       description: "Express your authentic digital self",
       items: [
         { icon: <Palette size={16} />, title: "Create Avatar", description: "Create avatar video using image" },
-        { icon: <Camera size={16} />, title: "Mirror Upload", description: "Transform your photos into reflections" },
-        { icon: <Sparkles size={16} />, title: "Emotion Templates", description: "Start with feeling-based presets" }
+        { icon: <Camera size={16} />, title: "Text To Speech", description: "transform your text into speech" },
+        // { icon: <Sparkles size={16} />, title: "Emotion Templates", description: "Start with feeling-based presets" }
       ]
     },
     {
@@ -66,7 +66,7 @@ const NavDropdown = () => {
       items: [
         { icon: <Sliders size={16} />, title: "Preferences", description: "Customize your reflection settings" },
         { icon: <Shield size={16} />, title: "Privacy", description: "Control your digital boundaries" },
-        { icon: <CloudCog size={16} />, title: "Mirror Sync", description: "Manage your persona across devices" }
+        // { icon: <CloudCog size={16} />, title: "Mirror Sync", description: "Manage your persona across devices" }
       ]
     }
   ];

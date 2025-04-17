@@ -1,19 +1,18 @@
-"use client"
+"use client";
 
 import React from "react";
-import { toast } from "sonner"
+import { toast } from "sonner";
 // src/app/page.tsx
-import Hero from './home/Hero1'
-import Features from './home/Features'
-import Showcase from './home/Showcase'
-import Testimonials from './home/Testimonials'
+import Hero from "./home/Hero1";
+import Features from "./home/Features";
+import Showcase from "./home/Showcase";
+import Testimonials from "./home/Testimonials";
 // import Pricing from './home/Pricing'
-import CallToAction from './home/CallToAction'
-import Footer from './home/Footer'
-import Header from './home/Header'
-import Navbar from './home/Navbar';
+import CallToAction from "./home/CallToAction";
+import Footer from "./home/Footer";
+// import Header from './home/Header'
+import Navbar from "./home/Navbar";
 // import { Button } from "@/components/ui/button"
-
 
 export default function Home() {
   return (
@@ -29,21 +28,20 @@ export default function Home() {
           })
         }>
       </button> */}
-    <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
-    <Navbar />
-      
-      <main>
-        
-        <Hero />
-        <Features />
-        <Showcase />
-        <Testimonials />
-        {/* <Pricing /> */}
-        <CallToAction />
-      </main>
+      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+        <Navbar />
 
-      <Footer />
+        <main>
+          <Hero />
+          <Features />
+          <Showcase />
+          <Testimonials />
+          {/* <Pricing /> */}
+          <CallToAction />
+        </main>
+
+        <Footer />
+      </div>
     </div>
-    </div>
-  )
+  );
 }

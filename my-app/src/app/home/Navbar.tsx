@@ -32,7 +32,6 @@ const Navbar = () => {
         setMounted(true);
     }, []);
 
-    // Handle scroll effects
     useEffect(() => {
         const handleScroll = () => {
             setScrolled(window.scrollY > 20);
