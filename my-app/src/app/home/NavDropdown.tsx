@@ -21,15 +21,9 @@ type ItemType = {
 
 
 const NavDropdown = () => {
-<<<<<<< HEAD
   const [activeDropdown, setActiveDropdown] = useState(null);
 
   const dropdownItems: ItemType[] = [
-=======
- const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
-  
-  const dropdownItems = [
->>>>>>> 0aa6ada (home page)
     {
       id: 'gallery',
       title: 'Gallery',
@@ -67,15 +61,9 @@ const NavDropdown = () => {
       ]
     }
   ];
-<<<<<<< HEAD
 
   const handleMouseEnter = (id) => {
     console.log(id)
-=======
-  
-  
-  const handleMouseEnter = (id:string) => {
->>>>>>> 0aa6ada (home page)
     setActiveDropdown(id);
   };
 
