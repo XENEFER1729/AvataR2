@@ -23,6 +23,7 @@ export default function PrivacySettings() {
           </p>
         </div>
 
+
         {/* Account Privacy Settings */}
         <div className="bg-[#3a3050] p-1 rounded-2xl shadow-2xl border border-purple-300">
           <div className="bg-[#4a3d66] p-6 rounded-2xl">

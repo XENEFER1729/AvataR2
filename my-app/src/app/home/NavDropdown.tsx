@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client"
 "use client";
 
@@ -12,11 +13,48 @@ const NavDropdown = () => {
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
 
   const dropdownItems = [
+=======
+"use client";
+import React, { useState, useEffect } from 'react';
+import Image from 'next/image';
+import { useTheme } from 'next-themes';
+
+import {
+  ImageIcon, PenTool, Settings, ChevronDown, Sparkles,
+  Camera, UserPlus, Palette, Sliders, Shield, CloudCog
+} from 'lucide-react';
+
+type SubItem = {
+  icon: React.ReactNode;
+  title: string;
+  description: string;
+};
+
+type ItemType = {
+  id: string;
+  title: string;
+  icon: React.ReactNode;
+  image: string;
+  description: string;
+  items: SubItem[];
+};
+
+const NavDropdown = () => {
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
+  const { theme } = useTheme();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const dropdownItems: ItemType[] = [
+>>>>>>> ed944fa3860a89c14cdca9dc8827cd7bae85b52b
     {
       id: 'gallery',
       title: 'Gallery',
       icon: <ImageIcon size={18} />,
-      image: "/api/placeholder/500/300",
+      image: "/",
       description: "Explore and curate your personal reflections",
       items: [
         { 
@@ -40,12 +78,13 @@ const NavDropdown = () => {
       ]
     },
     {
-      id: 'create',
-      title: 'Create Avatar',
+      id: 'dashboard',
+      title: 'Create',
       icon: <PenTool size={18} />,
-      image: "/api/placeholder/500/300",
+      image: "/createAvatar.avif",
       description: "Express your authentic digital self",
       items: [
+<<<<<<< HEAD
         { 
           icon: <Palette size={16} />, 
           title: "Persona Designer", 
@@ -64,15 +103,21 @@ const NavDropdown = () => {
           description: "Start with feeling-based presets", 
           href: "/create/templates" 
         }
+=======
+        { icon: <Palette size={16} />, title: "Create Avatar", description: "Create avatar video using image" },
+        { icon: <Camera size={16} />, title: "Text To Speech", description: "transform your text into speech" },
+        // { icon: <Sparkles size={16} />, title: "Emotion Templates", description: "Start with feeling-based presets" }
+>>>>>>> ed944fa3860a89c14cdca9dc8827cd7bae85b52b
       ]
     },
     {
       id: 'settings',
       title: 'Settings',
       icon: <Settings size={18} />,
-      image: "/api/placeholder/500/300",
+      image: "/",
       description: "Personalize your mirror experience",
       items: [
+<<<<<<< HEAD
         { 
           icon: <Sliders size={16} />, 
           title: "Preferences", 
@@ -91,10 +136,16 @@ const NavDropdown = () => {
           description: "Manage your persona across devices", 
           href: "/settings/sync" 
         }
+=======
+        { icon: <Sliders size={16} />, title: "Preferences", description: "Customize your reflection settings" },
+        { icon: <Shield size={16} />, title: "Privacy", description: "Control your digital boundaries" },
+        // { icon: <CloudCog size={16} />, title: "Mirror Sync", description: "Manage your persona across devices" }
+>>>>>>> ed944fa3860a89c14cdca9dc8827cd7bae85b52b
       ]
     }
   ];
 
+<<<<<<< HEAD
   const handleMouseEnter = (id: string) => {
     setActiveDropdown(id);
   };
@@ -102,19 +153,23 @@ const NavDropdown = () => {
   const handleMouseLeave = () => {
     setActiveDropdown(null);
   };
+=======
+  const handleMouseEnter = (id: string) => setActiveDropdown(id);
+  const handleMouseLeave = () => setActiveDropdown(null);
+
+  if (!mounted) return null; // Prevent hydration mismatch
+>>>>>>> ed944fa3860a89c14cdca9dc8827cd7bae85b52b
 
   return (
     <div className="hidden md:flex items-center space-x-6">
       {dropdownItems.map((item) => (
-        <div 
+        <div
           key={item.id}
           className="relative"
           onMouseEnter={() => handleMouseEnter(item.id)}
           onMouseLeave={handleMouseLeave}
         >
-          <button 
-            className="flex items-center space-x-3 text-gray-500 hover:text-gray-200 cursor-pointer font-medium transition-colors px-3 py-2 rounded-full backdrop-blur-sm hover:shadow-sm group"
-          >
+          <button className="flex items-center space-x-3 text-gray-500 dark:text-gray-300 hover:text-gray-200 dark:hover:text-white cursor-pointer font-medium transition-colors px-3 py-2 rounded-full backdrop-blur-sm hover:shadow-sm group">
             <span className="text-purple-400 group-hover:text-indigo-500 transition-colors">{item.icon}</span>
             <span className="relative">
               {item.title}
@@ -122,16 +177,20 @@ const NavDropdown = () => {
             </span>
             <ChevronDown size={16} className={`transition-transform duration-300 ${activeDropdown === item.id ? 'rotate-180' : ''}`} />
           </button>
-          
+
           {activeDropdown === item.id && (
-            <div className="absolute left-1/2 transform -translate-x-1/2 mt-2 w-screen max-w-md bg-white/90 backdrop-blur-lg rounded-xl shadow-lg overflow-hidden transition-all duration-300 z-50 border border-purple-100">
+            <div className={`absolute left-1/2 transform -translate-x-1/2 mt-2 w-screen max-w-md bg-white/90 dark:bg-gray-900/90 backdrop-blur-lg rounded-xl shadow-lg overflow-hidden transition-all duration-300 z-50 border border-purple-100 dark:border-gray-700`}>
               <div className="p-4">
                 <div className="relative rounded-lg overflow-hidden mb-4 shadow-md">
-                  <img 
-                    src={item.image} 
-                    alt={`${item.title} illustration`} 
-                    className="w-full h-44 object-cover"
-                  />
+                  <div className="h-50 relative w-full">
+                    <Image
+                      src={item.image}
+                      alt="Background"
+                      fill
+                      className="object-cover"
+                      priority
+                    />
+                  </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-indigo-500/70 to-transparent flex items-end">
                     <div className="p-4 text-white">
                       <h3 className="text-lg font-medium">{item.title}</h3>
@@ -139,25 +198,36 @@ const NavDropdown = () => {
                     </div>
                   </div>
                 </div>
-                
+
                 <div className="grid grid-cols-1 gap-2">
                   {item.items.map((subItem, index) => (
+<<<<<<< HEAD
                     <Link 
                       key={index} 
                       href={subItem.href} 
                       className="flex items-start p-3 rounded-lg hover:bg-purple-50 transition-colors group"
+=======
+                    <a
+                      key={index}
+                      href={`/${item.id}Avatar`}
+                      onClick={() => console.log(item.id)}
+                      className="flex items-start p-3 rounded-lg hover:bg-purple-50 dark:hover:bg-gray-800 transition-colors group"
+>>>>>>> ed944fa3860a89c14cdca9dc8827cd7bae85b52b
                     >
                       <div className="mr-3 text-purple-400 group-hover:text-indigo-500 transition-colors mt-0.5">
                         {subItem.icon}
                       </div>
                       <div>
-                        <h4 className="font-medium text-gray-700 group-hover:text-indigo-600 transition-colors">{subItem.title}</h4>
-                        <p className="text-sm text-gray-500">{subItem.description}</p>
+                        <h4 className="font-medium text-gray-700 dark:text-gray-200 group-hover:text-indigo-600 transition-colors">
+                          {subItem.title}
+                        </h4>
+                        <p className="text-sm text-gray-500 dark:text-gray-400">{subItem.description}</p>
                       </div>
                     </Link>
                   ))}
                 </div>
               </div>
+<<<<<<< HEAD
               
               <div className="px-4 py-3 bg-gradient-to-r from-purple-50 to-indigo-50 border-t border-purple-100">
                 <Link href={`/${item.id}`}>
@@ -168,6 +238,17 @@ const NavDropdown = () => {
                     </svg>
                   </span>
                 </Link>
+=======
+
+              <div className="px-4 py-3 bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-gray-800 dark:to-gray-900 border-t border-purple-100 dark:border-gray-700">
+                <a
+                  href="#"
+                  className="text-sm font-medium text-indigo-500 hover:text-indigo-600 dark:text-indigo-400 dark:hover:text-indigo-300 transition-colors flex items-center"
+                >
+                  <span>View all {item.title.toLowerCase()} options →</span>
+                  
+                </a>
+>>>>>>> ed944fa3860a89c14cdca9dc8827cd7bae85b52b
               </div>
             </div>
           )}
