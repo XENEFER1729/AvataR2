@@ -9,7 +9,7 @@ const Showcase: React.FC = () => {
   return (
     <section
       id="showcase"
-      className="relative py-16 md:py-24 bg-white dark:bg-gray-900 transition-colors duration-300 overflow-hidden"
+      className="relative py-16 md:py-24 bg-white dark:bg-black transition-colors duration-300 overflow-hidden"
     >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
@@ -78,7 +78,6 @@ const Showcase: React.FC = () => {
         <div className="mt-16 relative">
           {/* Enhanced Animated Key Features Title Without SVG */}
           <div className="mb-10 relative">
-
             <h2 className="text-3xl md:text-4xl font-bold text-center relative z-10">
               <span className="inline-block relative">
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-600 to-purple-400 dark:from-purple-400 dark:to-purple-200">

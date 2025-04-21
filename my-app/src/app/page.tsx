@@ -28,9 +28,8 @@ export default function Home() {
           })
         }>
       </button> */}
-      <div className="min-h-screen bg-white dark:bg-gray-900 transition-colors duration-300">
+      <div className="min-h-screen bg-white dark:bg-black transition-colors duration-300">
         <Navbar />
-
         <main>
           <Hero />
           <Features />
@@ -39,7 +38,6 @@ export default function Home() {
           {/* <Pricing /> */}
           <CallToAction />
         </main>
-
         <Footer />
       </div>
     </div>
