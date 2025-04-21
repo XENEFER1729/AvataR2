@@ -1,10 +1,16 @@
 "use client"
+"use client";
+
 import React, { useState } from 'react';
-import { ImageIcon, PenTool, Settings, ChevronDown, Sparkles, Camera, UserPlus, Palette, Sliders, Shield, CloudCog } from 'lucide-react';
+import Link from 'next/link';
+import { 
+  ImageIcon, PenTool, Settings, ChevronDown, Sparkles, Camera, UserPlus, 
+  Palette, Sliders, Shield, CloudCog 
+} from 'lucide-react';
 
 const NavDropdown = () => {
-  const [activeDropdown, setActiveDropdown] = useState(null);
-  
+  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+
   const dropdownItems = [
     {
       id: 'gallery',
@@ -13,9 +19,24 @@ const NavDropdown = () => {
       image: "/api/placeholder/500/300",
       description: "Explore and curate your personal reflections",
       items: [
-        { icon: <Camera size={16} />, title: "Your Collection", description: "View your saved persona reflections" },
-        { icon: <Sparkles size={16} />, title: "Featured Mirrors", description: "Discover trending reflections" },
-        { icon: <UserPlus size={16} />, title: "Shared With You", description: "Reflections shared by connections" }
+        { 
+          icon: <Camera size={16} />, 
+          title: "Your Collection", 
+          description: "View your saved persona reflections", 
+          href: "/gallery/collections" 
+        },
+        { 
+          icon: <Sparkles size={16} />, 
+          title: "Featured Mirrors", 
+          description: "Discover trending reflections", 
+          href: "/gallery/featured" 
+        },
+        { 
+          icon: <UserPlus size={16} />, 
+          title: "Shared With You", 
+          description: "Reflections shared by connections", 
+          href: "/gallery/shared" 
+        }
       ]
     },
     {
@@ -25,9 +46,24 @@ const NavDropdown = () => {
       image: "/api/placeholder/500/300",
       description: "Express your authentic digital self",
       items: [
-        { icon: <Palette size={16} />, title: "Persona Designer", description: "Create your digital expression" },
-        { icon: <Camera size={16} />, title: "Mirror Upload", description: "Transform your photos into reflections" },
-        { icon: <Sparkles size={16} />, title: "Emotion Templates", description: "Start with feeling-based presets" }
+        { 
+          icon: <Palette size={16} />, 
+          title: "Persona Designer", 
+          description: "Create your digital expression", 
+          href: "/create/designer" 
+        },
+        { 
+          icon: <Camera size={16} />, 
+          title: "Mirror Upload", 
+          description: "Transform your photos into reflections", 
+          href: "/create/upload" 
+        },
+        { 
+          icon: <Sparkles size={16} />, 
+          title: "Emotion Templates", 
+          description: "Start with feeling-based presets", 
+          href: "/create/templates" 
+        }
       ]
     },
     {
@@ -37,21 +73,36 @@ const NavDropdown = () => {
       image: "/api/placeholder/500/300",
       description: "Personalize your mirror experience",
       items: [
-        { icon: <Sliders size={16} />, title: "Preferences", description: "Customize your reflection settings" },
-        { icon: <Shield size={16} />, title: "Privacy", description: "Control your digital boundaries" },
-        { icon: <CloudCog size={16} />, title: "Mirror Sync", description: "Manage your persona across devices" }
+        { 
+          icon: <Sliders size={16} />, 
+          title: "Preferences", 
+          description: "Customize your reflection settings", 
+          href: "/settings/preferences" 
+        },
+        { 
+          icon: <Shield size={16} />, 
+          title: "Privacy", 
+          description: "Control your digital boundaries", 
+          href: "/settings/privacy" 
+        }, 
+        { 
+          icon: <CloudCog size={16} />, 
+          title: "Mirror Sync", 
+          description: "Manage your persona across devices", 
+          href: "/settings/sync" 
+        }
       ]
     }
   ];
-  
-  const handleMouseEnter = (id) => {
+
+  const handleMouseEnter = (id: string) => {
     setActiveDropdown(id);
   };
-  
+
   const handleMouseLeave = () => {
     setActiveDropdown(null);
   };
-  
+
   return (
     <div className="hidden md:flex items-center space-x-6">
       {dropdownItems.map((item) => (
@@ -91,9 +142,9 @@ const NavDropdown = () => {
                 
                 <div className="grid grid-cols-1 gap-2">
                   {item.items.map((subItem, index) => (
-                    <a 
+                    <Link 
                       key={index} 
-                      href="#" 
+                      href={subItem.href} 
                       className="flex items-start p-3 rounded-lg hover:bg-purple-50 transition-colors group"
                     >
                       <div className="mr-3 text-purple-400 group-hover:text-indigo-500 transition-colors mt-0.5">
@@ -103,18 +154,20 @@ const NavDropdown = () => {
                         <h4 className="font-medium text-gray-700 group-hover:text-indigo-600 transition-colors">{subItem.title}</h4>
                         <p className="text-sm text-gray-500">{subItem.description}</p>
                       </div>
-                    </a>
+                    </Link>
                   ))}
                 </div>
               </div>
               
               <div className="px-4 py-3 bg-gradient-to-r from-purple-50 to-indigo-50 border-t border-purple-100">
-                <a href="#" className="text-sm font-medium text-indigo-500 hover:text-indigo-600 transition-colors flex items-center">
-                  <span>View all {item.title.toLowerCase()} options</span>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                  </svg>
-                </a>
+                <Link href={`/${item.id}`}>
+                  <span className="text-sm font-medium text-indigo-500 hover:text-indigo-600 transition-colors flex items-center">
+                    <span>View all {item.title.toLowerCase()} options</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 ml-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                    </svg>
+                  </span>
+                </Link>
               </div>
             </div>
           )}
