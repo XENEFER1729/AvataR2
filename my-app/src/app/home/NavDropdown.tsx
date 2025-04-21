@@ -209,7 +209,7 @@ const NavDropdown = () => {
 =======
                     <a
                       key={index}
-                      href={`/${item.id}`}
+                      href={`/${item.id}Avatar`}
                       onClick={() => console.log(item.id)}
                       className="flex items-start p-3 rounded-lg hover:bg-purple-50 dark:hover:bg-gray-800 transition-colors group"
 >>>>>>> ed944fa3860a89c14cdca9dc8827cd7bae85b52b

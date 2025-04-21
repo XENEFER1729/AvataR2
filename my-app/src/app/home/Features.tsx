@@ -68,7 +68,7 @@ const Features: React.FC = () => {
   ];
 
   return (
-    <section id="features" className="relative py-16 md:py-24 bg-gray-50 dark:bg-black transition-colors duration-300 overflow-hidden">
+    <section id="features" className="relative py-16 md:py-24 bg-gray-50 dark:bg-gray-900 transition-colors duration-300 overflow-hidden">
       {/* Background elements */}
       <div className="absolute w-full h-full top-0 left-0 overflow-hidden -z-10">
 
