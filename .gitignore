@@ -1,73 +1,33 @@
-# # Global ignores
-# .DS_Store
-# Thumbs.db
+/frontend/node_modules
+/backend/node_modules
 
-# # Python environment
-# backend/models/Anitalker-env/
-# *.pyc
-# __pycache__/
+# Ignore Python virtual environments
+env/
+venv/
+Anitalker-env/
+aniportrait-env/
 
-# **/aniportrait-env/
-# **/Anitalker-env/
+# Ignore all checkpoint files
+*.ckpt
 
-
-# # Checkpoints & outputs
-# backend/ckpts/
-# backend/output/
-
-# # Flask upload folders (optional)
-# backend/uploads/
-
-# # Node.js
-# backend/node_modules/
-# frontend/node_modules/
-# frontend/.next/
-# frontend/.env.local
-# frontend/.env
-
-# # Logs
-# *.log
-
-# # VSCode, IDEs, OS files
-# .vscode/
-# .idea/
-# *.swp
-
-
-# === Python Environments ===
-**/*env/
-**/.venv/
-**/__pycache__/
-**/*.py[cod]
-
-# === Checkpoints / Model Files ===
+# Ignore checkpoints
+ckpts/
 **/ckpts/
-**/*.ckpt
-**/output/
-**/*.pth
-**/*.pt
-**/*.npz
 
-# === Logs / Temp / Cache ===
-**/*.log
-**/*.tmp
-**/.ipynb_checkpoints/
 
-# === Node.js ===
-**/node_modules/
-**/.next/
-**/.turbo/
-**/dist/
+uploads/
 
-# === System Files ===
+# Ignore OS files
 .DS_Store
 Thumbs.db
 
-# === VSCode / IDEs ===
-.vscode/
-.idea/
+# Ignore log and cache files
+*.log
+__pycache__/
 
-# === OS Generated ===
-*.bak
-*.swp
-*.swo
+# Ignore compiled files
+*.pyc
+*.pyo
+
+# Ignore .env config files
+.env
