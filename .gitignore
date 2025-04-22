@@ -1,0 +1,34 @@
+# Global ignores
+.DS_Store
+Thumbs.db
+
+# Python environment
+backend/models/Anitalker-env/
+*.pyc
+__pycache__/
+
+**/aniportrait-env/
+**/Anitalker-env/
+
+
+# Checkpoints & outputs
+backend/ckpts/
+backend/output/
+
+# Flask upload folders (optional)
+backend/uploads/
+
+# Node.js
+backend/node_modules/
+frontend/node_modules/
+frontend/.next/
+frontend/.env.local
+frontend/.env
+
+# Logs
+*.log
+
+# VSCode, IDEs, OS files
+.vscode/
+.idea/
+*.swp
