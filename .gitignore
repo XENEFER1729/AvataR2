@@ -10,6 +10,10 @@ aniportrait-env/
 # Ignore all checkpoint files
 *.ckpt
 
+# Only ignore these specific ckpts
+backend/models/AniTalker/ckpts/
+backend/models/AniTalker/code/ckpts/
+
 # Ignore checkpoints
 ckpts/
 **/ckpts/
