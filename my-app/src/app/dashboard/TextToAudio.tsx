@@ -183,7 +183,7 @@ const TextToAudio = () => {
         requestData.append('audio', formData.audio);
       }
       
-      const response = await fetch('http://10.11.16.189:1234/inf', {
+      const response = await fetch('http://127.0.0.1:1234/inf', {
         method: 'POST',
         body: requestData,
       });

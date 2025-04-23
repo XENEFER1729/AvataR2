@@ -75,4 +75,4 @@ def TTS():
 
 
 if __name__ == "__main__":
-    app.run(host="192.168.1.170", port=1234, debug=True)
+    app.run(port=1234, debug=True)
