@@ -58,7 +58,7 @@ const NavDropdown = () => {
       ]
     },
     {
-      id: 'settings',
+      id: 'settings/sync',
       title: 'Settings',
       icon: <Settings size={18} />,
       image: "/",
