@@ -3,7 +3,7 @@ import Main from "./CreateAvatar"
 
 const page = () => {
   return (
-    <div className='p-6 bg-purple-100'>
+    <div className='p-6 '>
       <Main></Main>
     </div>
   )

@@ -1,6 +1,6 @@
 "use client"
 import React, { useState, useEffect } from 'react';
-import { Menu, X, Home, Heart, MessageCircle, LogIn, Moon, Sun } from 'lucide-react';
+import { Menu, X, Home, Heart,ImageIcon, PenTool, Settings, MessageCircle, LogIn, Moon, Sun } from 'lucide-react';
 import { useTheme } from 'next-themes';
 import NavDropdown from './NavDropdown';
 
@@ -151,9 +151,11 @@ const Navbar = () => {
                         <div className={`flex flex-col space-y-3 rounded-xl p-4 shadow-lg justify-center ${
                             theme === 'dark' ? 'bg-gray-800' : 'bg-white'
                         }`}>
-                            <MobileNavLink href="#" icon={<Home size={16} />} text="Home" />
+                            <MobileNavLink href="/" icon={<Home size={16} />} text="Home" />
                             <MobileNavLink href="#" icon={<Heart size={16} />} text="Reflections" />
-                            <MobileNavLink href="#" icon={<MessageCircle size={16} />} text="Connect" />
+                            <MobileNavLink href="#" icon={<ImageIcon size={16} />} text="Gallery" />
+                            <MobileNavLink href="dashboard" icon={<PenTool size={16} />} text="Create" />
+                            <MobileNavLink href="settings/privacy" icon={<Settings size={16} />} text="Settings" />
                             <MobileNavLink href="#" icon={<LogIn size={16} />} text="Sign Up" isButton={true} />
                         </div>
                     </div>

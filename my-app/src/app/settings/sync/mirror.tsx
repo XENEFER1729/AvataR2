@@ -11,13 +11,13 @@ export default function MirrorSyncPage() {
 
   return (
     <div className="min-h-screen py-10 px-6" style={{ backgroundColor: '#E6E6FA' }}>
-      <div className="max-w-4xl mx-auto space-y-10">
-
-      {/* Background Image with opacity 0.25 */}
-      <div className="absolute inset-0 opacity-15 z-0">
+      {/* Background Image with opacity and pointer-events disabled */}
+      <div className="absolute inset-0 opacity-15 pointer-events-none z-0">
         <img src="/ai(1).png" alt="Background" className="w-full h-full object-cover" />
       </div>
 
+      {/* Foreground Content */}
+      <div className="relative z-10 max-w-4xl mx-auto space-y-10">
         {/* Header */}
         <div>
           <h1 className="text-3xl font-bold text-black mb-1">Mirror Sync</h1>
