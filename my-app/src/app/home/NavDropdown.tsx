@@ -47,7 +47,7 @@ const NavDropdown = () => {
       id: "gallery",
       title: "Gallery",
       icon: <ImageIcon size={18} />,
-      image: "/",
+      image: "/gallery.jpeg",
       description: "Explore and curate your personal reflections",
       items: [
         {
@@ -96,7 +96,7 @@ const NavDropdown = () => {
       id: "settings",
       title: "Settings",
       icon: <Settings size={18} />,
-      image: "/",
+      image: "/settings.jpg",
       description: "Personalize your mirror experience",
       items: [
         {
@@ -135,8 +135,8 @@ const NavDropdown = () => {
           onMouseEnter={() => handleMouseEnter(item.id)}
           onMouseLeave={handleMouseLeave}
         >
-          <button className="flex items-center space-x-3 text-gray-500 dark:text-gray-300 hover:text-gray-200 dark:hover:text-white cursor-pointer font-medium transition-colors px-3 py-2 rounded-full backdrop-blur-sm hover:shadow-sm group">
-            <span className="text-purple-400 group-hover:text-indigo-500 transition-colors">
+          <button className="flex items-center space-x-3 text-black dark:text-gray-300 dark:hover:text-white cursor-pointer font-medium transition-colors px-3 py-2 rounded-full backdrop-blur-sm dark:hover:shadow-sm group">
+            <span className="text-purple-700 dark:text-purple-400 group-hover:text-indigo-500 transition-colors">
               {item.icon}
             </span>
             <span className="relative">

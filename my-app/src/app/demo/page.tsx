@@ -19,7 +19,7 @@ const LiveDemoTeaser = () => {
           Type a prompt, watch the avatar talk — all in real time. No setup, no hassle. Just click and be amazed.
         </p>
         <a
-          href="/generate"
+          href="/dashboard"
           className="inline-block bg-purple-600 hover:bg-purple-700 hover:scale-[1.03] transition-all px-6 py-3 text-lg font-medium rounded-full shadow-lg"
         >
           Try the Demo 🚀
