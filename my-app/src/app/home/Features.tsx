@@ -48,7 +48,7 @@ const Features: React.FC = () => {
     {
       icon: <ZoomIn size={24} />,
       title: "High Resolution",
-      description: "Get crystal-clear avatars in up to 4K resolution, perfect for any platform or print media."
+      description: "Get Crystal-clear avatars in High resolution, perfect for any platform or print media."
     },
     {
       icon: <Shield size={24} />,
