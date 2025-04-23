@@ -15,7 +15,9 @@ import {
   Text,
   Camera,
   StopCircle,
-  Save
+  Save,
+  Play,
+  RefreshCcw
 } from 'lucide-react'
 
 interface Inputs {
@@ -43,10 +45,15 @@ export default function UploadContentForm() {
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(null)
   const [audioChunks, setAudioChunks] = useState<BlobPart[]>([])
   const [videoCaptureActive, setVideoCaptureActive] = useState(false)
+  
+  // Add state for output video
+  const [outputVideo, setOutputVideo] = useState<string | null>(null)
+  const [processingVideo, setProcessingVideo] = useState(false)
 
   const videoRef = useRef<HTMLVideoElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const audioRef = useRef<HTMLAudioElement>(null)
+  const outputVideoRef = useRef<HTMLVideoElement>(null)
 
   const now = new Date().toLocaleTimeString("en-US", {
     hour: "2-digit",
@@ -230,23 +237,65 @@ export default function UploadContentForm() {
     }
 
     setLoading(true)
-
+    setProcessingVideo(true)
+    
     try {
-      const formData = new FormData()
-      formData.append('text', text)
-      if (image.image) formData.append('image', image.image)
-      if (audio) formData.append('audio', audio)
-
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      toast.success("Content uploaded successfully", {
+      // Text to Audio API call
+      const T2A = new FormData();
+      T2A.append('text', text)
+      if (audio) T2A.append('audio', audio)
+      
+      console.log("Sending text to audio request...")
+      const responseT2A = await fetch('http://127.0.0.1:1234/inf', {
+        method: 'POST',
+        body: T2A
+      });
+      
+      if (!responseT2A.ok) {
+        throw new Error(`Text to Audio API failed with status: ${responseT2A.status}`);
+      }
+      
+      const audioBlob = await responseT2A.blob();
+      console.log("Received audio response", audioBlob);
+      
+      // Avatar generation API call
+      const Avatar = new FormData();
+      if (image.image) Avatar.append('image', image.image)
+      if (audioBlob) Avatar.append('audio', audioBlob)
+      
+      console.log("Sending avatar generation request...")
+      const responseAvatar = await fetch("http://127.0.0.1:5000/run", {
+        method: 'POST',
+        body: Avatar
+      });
+      
+      if (!responseAvatar.ok) {
+        throw new Error(`Avatar API failed with status: ${responseAvatar.status}`);
+      }
+      
+      // Handle video response
+      const videoBlob = await responseAvatar.blob();
+      console.log("Received video response", videoBlob);
+      
+      // Create URL for video and set it to state
+      if (outputVideo) {
+        URL.revokeObjectURL(outputVideo);
+      }
+      
+      const videoUrl = URL.createObjectURL(videoBlob);
+      setOutputVideo(videoUrl);
+      
+      toast.success("Video generated successfully", {
         description: now,
-      })
+      });
     } catch (error) {
-      console.error('Upload failed:', error)
-      toast.error("Upload failed")
+      console.error('Processing failed:', error)
+      toast.error("Video generation failed", {
+        description: error instanceof Error ? error.message : "Unknown error occurred"
+      });
     } finally {
       setLoading(false)
+      setProcessingVideo(false)
     }
   }
 
@@ -254,9 +303,11 @@ export default function UploadContentForm() {
     setText('')
     if (image.preview) URL.revokeObjectURL(image.preview)
     if (audioUrl) URL.revokeObjectURL(audioUrl)
+    if (outputVideo) URL.revokeObjectURL(outputVideo)
     setImage({ image: null, preview: null })
     setAudio(null)
     setAudioUrl(null)
+    setOutputVideo(null)
     setErrors({})
     stopCamera()
     if (recordingAudio) {
@@ -491,22 +542,73 @@ export default function UploadContentForm() {
           )}
         </div>
 
+        {/* Output Video Section */}
+        {(outputVideo || processingVideo) && (
+          <div className="space-y-3 mt-6 pt-6 border-t-2 border-purple-100">
+            <h2 className="flex items-center text-lg font-medium text-purple-800 mb-2">
+              <Play className="h-5 w-5 mr-2" />
+              Generated Avatar Video
+            </h2>
+            
+            {processingVideo && !outputVideo && (
+              <div className="bg-purple-50 p-8 rounded-lg border-2 border-purple-200 flex flex-col items-center justify-center">
+                <Loader2 className="h-12 w-12 text-purple-600 animate-spin mb-4" />
+                <p className="text-purple-700 font-medium">Generating your avatar video...</p>
+                <p className="text-purple-500 text-sm mt-2">This may take a moment</p>
+              </div>
+            )}
+            
+            {outputVideo && (
+              <div className="bg-purple-50 p-6 rounded-lg border-2 border-purple-300">
+                <div className="relative aspect-video w-full overflow-hidden rounded-lg bg-black mb-4">
+                  <video 
+                    ref={outputVideoRef}
+                    src={outputVideo}
+                    controls
+                    autoPlay
+                    className="w-full h-full"
+                  >
+                    Your browser does not support the video tag.
+                  </video>
+                </div>
+                
+                <div className="flex justify-between items-center">
+                  <p className="text-purple-700 font-medium">Your avatar is speaking the text with your voice!</p>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (outputVideoRef.current) {
+                        outputVideoRef.current.currentTime = 0;
+                        outputVideoRef.current.play();
+                      }
+                    }}
+                    className="flex items-center px-4 py-2 bg-purple-200 text-purple-800 rounded-lg hover:bg-purple-300 transition-all"
+                  >
+                    <RefreshCcw className="h-4 w-4 mr-2" />
+                    Replay
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+
         {/* Submit and Reset Buttons */}
         <div className="flex flex-col sm:flex-row gap-4 pt-4">
           <button
             type="submit"
-            disabled={loading}
+            disabled={loading || processingVideo}
             className="flex-1 bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-500 hover:to-purple-700 text-white py-3 px-4 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 flex items-center justify-center shadow-lg hover:shadow-purple-300"
           >
-            {loading ? (
+            {loading || processingVideo ? (
               <span className="flex items-center justify-center">
                 <Loader2 className="animate-spin -ml-1 mr-2 h-5 w-5" />
-                Uploading...
+                {processingVideo ? "Processing Video..." : "Uploading..."}
               </span>
             ) : (
               <span className="flex items-center">
                 <Save className="h-5 w-5 mr-2" />
-                Submit Content
+                Generate Avatar Video
               </span>
             )}
           </button>
