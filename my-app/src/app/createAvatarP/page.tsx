@@ -4,7 +4,7 @@ import Main from "./CreateAvatar"
 const page = () => {
   return (
     <div className='p-6 '>
-      <Main></Main>
+      <Main/>
     </div>
   )
 }
