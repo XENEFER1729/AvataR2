@@ -102,15 +102,15 @@ const Navbar = () => {
           <div className="flex items-center space-x-3 group scale-110">
             <div className="relative w-12 h-12 overflow-hidden rounded-lg shadow-lg transition-all duration-300 group-hover:scale-115 bg-gradient-to-br from-purple-400 to-indigo-500">
               {/* Custom Logo Placeholder */}
-              <Link href = "/">
-              <Image
-                src="/ai.png"
-                alt="Company Logo"
-                width={40}
-                height={40}
-                className="mx-auto mt-2"
-                priority
-              />
+              <Link href="/demo">
+                <Image
+                  src="/ai.png"
+                  alt="Company Logo"
+                  width={40}
+                  height={40}
+                  className="mx-auto mt-2"
+                  priority
+                />
               </Link>
             </div>
             <h1
@@ -148,7 +148,7 @@ const Navbar = () => {
             <button className="bg-gradient-to-r cursor-pointer from-purple-500 to-indigo-600 hover:from-purple-400 hover:to-indigo-600 text-white px-5 py-2 rounded-full font-medium shadow-md flex items-center space-x-2 transition-all duration-300 hover:shadow-lg">
               <LogIn size={16} />
               <Link href="/">
-              <span>Get Started</span>
+                <span>Get Started</span>
               </Link>
             </button>
           </div>
@@ -233,7 +233,7 @@ const NavLink = ({
   <a
     href={href}
     onClick={() => setActivePage(text)}
-    className="flex items-center space-x-3 text-gray-500 dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 font-medium transition-colors px-3 py-2 rounded-full backdrop-blur-sm hover:shadow-sm group"
+    className="flex items-center space-x-3 text-black dark:text-gray-300 hover:text-gray-800 dark:hover:text-gray-100 font-medium transition-colors px-3 py-2 rounded-full backdrop-blur-sm hover:shadow-sm group"
   >
     <span className="text-purple-400 group-hover:text-indigo-500 transition-colors">
       {icon}
