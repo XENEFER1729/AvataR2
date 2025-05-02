@@ -15,6 +15,7 @@ import librosa # type: ignore
 import python_speech_features # type: ignore
 import importlib.util
 import time
+import sys
 
 def check_package_installed(package_name):
     package_spec = importlib.util.find_spec(package_name)
@@ -51,6 +52,14 @@ def saved_image(img_tensor, img_path):
     toPIL = transforms.ToPILImage()
     img = toPIL(img_tensor.detach().cpu().squeeze(0))  # 使用squeeze(0)来移除批次维度
     img.save(img_path)
+    
+#added
+transformers_427_path = os.path.abspath("../lib_transformers_427")
+def load_transformers(path):
+    sys.path.insert(0, path)
+    import transformers
+    sys.path.pop(0)
+    return transformers
 
 def main(args):
     frames_result_saved_path = os.path.join(args.result_path, 'frames')
@@ -142,7 +151,8 @@ def main(args):
             if not check_package_installed('transformers'):
                 print('Please install transformers module first.')
                 exit(0)
-            hubert_model_path = 'C:/Users/papur/Desktop/AvatarAI Project/final/AvataR/backend/models/AniTalker/ckpts/chinese-hubert-large'
+            # hubert_model_path = 'C:/Users/papur/Desktop/AvatarAI Project/final/AvataR/backend/models/AniTalker/ckpts/chinese-hubert-large'
+            hubert_model_path = 'C:/Users/Vivek/OneDrive/Desktop/2-2/Avatar/website/githubSANTOSH/AvataR/AvataR/backend/models/AniTalker/ckpts/chinese-hubert-large'
             print(os.getcwd())
             if not os.path.exists(hubert_model_path):
                 print('Please download the hubert weight into the ckpts path first.')
@@ -157,7 +167,30 @@ def main(args):
             feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained(hubert_model_path)
             audio_model.feature_extractor._freeze_parameters()
             audio_model.eval()
+            
+            # # Load AniTalker transformer version (e.g., 4.27.0)
+            # transformers_427 = load_transformers(transformers_427_path)
 
+            # # Import classes directly from submodules
+            # Wav2Vec2FeatureExtractor_427 = transformers_427.models.wav2vec2.feature_extraction_wav2vec2.Wav2Vec2FeatureExtractor
+            # HubertModel_427 = transformers_427.models.hubert.modeling_hubert.HubertModel
+
+            # # Set paths and device
+            # hubert_model_path = "facebook/hubert-base-ls960"  # or your local path
+            # device = "cpu"
+
+            # # Instantiate model and feature extractor
+            # audio_model = HubertModel_427.from_pretrained(hubert_model_path).to(device)
+            # feature_extractor = Wav2Vec2FeatureExtractor_427.from_pretrained(hubert_model_path)
+
+            # # Optional: Freeze extractor if applicable
+            # if hasattr(audio_model, "feature_extractor") and hasattr(audio_model.feature_extractor, "_freeze_parameters"):
+            #     audio_model.feature_extractor._freeze_parameters()
+
+            # audio_model.eval()
+            
+            
+            
             # hubert model forward pass
             audio, sr = librosa.load(args.test_audio_path, sr=16000)
             input_values = feature_extractor(audio, sampling_rate=16000, padding=True, do_normalize=True, return_tensors="pt").input_values
@@ -271,7 +304,7 @@ def get_arg_parser():
     parser.add_argument('--infer_type', type=str, default='mfcc_pose_only', help='mfcc_pose_only or mfcc_full_control')
     parser.add_argument('--test_image_path', type=str, help='Path to the portrait')
     parser.add_argument('--test_audio_path', type=str, help='Path to the driven audio')
-    parser.add_argument('--test_hubert_path', type=str, help='Path to the driven audio(hubert type). Not needed for MFCC')
+    parser.add_argument('--test_hubert_path', type=str,default="" , help='Path to the driven audio(hubert type). Not needed for MFCC')
     parser.add_argument('--result_path', type=str, default='./results/', help='Type of inference')
     parser.add_argument('--stage1_checkpoint_path', type=str, default='./ckpts/stage1.ckpt', help='Path to the checkpoint of Stage1')
     parser.add_argument('--stage2_checkpoint_path', type=str, default='./ckpts/pose_only.ckpt', help='Path to the checkpoint of Stage2')

@@ -52,7 +52,7 @@ def run_inference():
         "--test_image_path", image_path,
         "--test_audio_path", audio_path,
         "--infer_type", infer_type,
-        "--seed", str(seed),
+        "--seed", str(seed), 
         "--device", "cpu",
         "--stage1_checkpoint_path", stage1_ckpt,
         "--stage2_checkpoint_path", stage2_ckpt,

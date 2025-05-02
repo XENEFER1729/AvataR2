@@ -12,7 +12,7 @@ os.environ["PHONEMIZER_ESPEAK_LIBRARY"] = r"C:\Program Files (x86)\eSpeak\espeak
 # model = Zonos.from_pretrained("Zyphra/Zonos-v0.1-hybrid", device=device)
 model = Zonos.from_pretrained("Zyphra/Zonos-v0.1-transformer", device=device)
 
-wav, sampling_rate = torchaudio.load("voices/santosh2.wav")
+wav, sampling_rate = torchaudio.load("voices/output.wav")
 speaker = model.make_speaker_embedding(wav, sampling_rate)
 
 torch.manual_seed(421)

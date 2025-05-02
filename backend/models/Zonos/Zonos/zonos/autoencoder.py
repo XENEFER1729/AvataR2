@@ -3,7 +3,8 @@ import math
 import torch
 import torchaudio
 from transformers.models.dac import DacModel
-
+# from transformers2.src.transformers.models.dac import DacModel
+# C:\Users\Vivek\OneDrive\Desktop\2-2\Avatar\website\githubSANTOSH\AvataR\AvataR\backend\models\Zonos\Zonos\zonos\transformers2
 
 class DACAutoencoder:
     def __init__(self):

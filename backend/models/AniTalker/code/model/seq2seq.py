@@ -80,6 +80,8 @@ class DiffusionPredictor(BaseModule):
         elif self.infer_type.startswith('hubert'):
             norm_weights = F.softmax(self.weights, dim=-1)
             weighted_feature = (norm_weights.unsqueeze(0).unsqueeze(-1).unsqueeze(-1) * seq_input_vector).sum(dim=1)
+            # print(f"norm_weights shape: {norm_weights.shape}")
+            # print(f"seq_input_vector shape: {seq_input_vector.shape}")
             x = self.down_sample1(weighted_feature.transpose(1,2)).transpose(1,2)
             x, _ = self.speech_encoder(x, masks=None)
         predicted_location, predicted_scale, predicted_pose = face_location, face_scale, yaw_pitch_roll
