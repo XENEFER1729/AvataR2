@@ -52,7 +52,6 @@ export default function UploadContentForm() {
   const [showGalleryImages,setShowGalleryImages]=useState(false);
   const [showGalleryAudios,setShowGalleryAudios]=useState(false);
   
-  // Add state for output video
   const [outputVideo, setOutputVideo] = useState<string | null>(null)
   const [processingVideo, setProcessingVideo] = useState(false)
 
@@ -97,7 +96,6 @@ export default function UploadContentForm() {
     minute: "2-digit",
   })
 
-  // Image functions
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
@@ -183,7 +181,6 @@ export default function UploadContentForm() {
     }
   }
 
-  // Audio functions
   const handleAudioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0]
     if (!file) return
@@ -226,7 +223,6 @@ export default function UploadContentForm() {
         setAudioUrl(url)
         setRecordingAudio(false)
 
-        // Stop all audio tracks
         stream.getAudioTracks().forEach(track => track.stop())
         
         toast.success("Audio recording saved")
@@ -289,44 +285,25 @@ export default function UploadContentForm() {
     setProcessingVideo(true)
     
     try {
-      // Text to Audio API call
-      const T2A = new FormData();
-      T2A.append('text', text)
-      if (audio) T2A.append('audio', audio)
+      // Use the /inf endpoint to process everything in one request
+      const formData = new FormData();
+      formData.append('text', text);
+      if (image.image) formData.append('image', image.image);
+      if (audio) formData.append('audio', audio);
       
-      console.log("Sending text to audio request...")
-      const responseT2A = await fetch('http://127.0.0.1:1234/inf', {
+      console.log("Sending request to the /inf endpoint...");
+      const response = await fetch('http://127.0.0.1:1000/inf', {
         method: 'POST',
-        body: T2A
+        body: formData
       });
       
-      if (!responseT2A.ok) {
-        throw new Error(`Text to Audio API failed with status: ${responseT2A.status}`);
+      if (!response.ok) {
+        throw new Error(`API failed with status: ${response.status}`);
       }
       
-      const audioBlob = await responseT2A.blob();
-      console.log("Received audio response", audioBlob);
-      
-      // Avatar generation API call
-      const Avatar = new FormData();
-      if (image.image) Avatar.append('image', image.image)
-      if (audioBlob) Avatar.append('audio', audioBlob)
-      
-      console.log("Sending avatar generation request...")
-      const responseAvatar = await fetch("http://127.0.0.1:5000/run", {
-        method: 'POST',
-        body: Avatar
-      });
-      
-      if (!responseAvatar.ok) {
-        throw new Error(`Avatar API failed with status: ${responseAvatar.status}`);
-      }
-      
-      // Handle video response
-      const videoBlob = await responseAvatar.blob();
+      const videoBlob = await response.blob();
       console.log("Received video response", videoBlob);
       
-      // Create URL for video and set it to state
       if (outputVideo) {
         URL.revokeObjectURL(outputVideo);
       }
