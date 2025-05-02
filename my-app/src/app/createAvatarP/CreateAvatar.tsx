@@ -271,6 +271,68 @@ export default function UploadContentForm() {
     return isValid
   }
 
+  // const handleUpload = async (e: React.FormEvent) => {
+  //   e.preventDefault()
+
+  //   if (!validateForm()) {
+  //     toast.error("Please complete all fields", {
+  //       description: "All fields are required to continue",
+  //     })
+  //     return
+  //   }
+
+  //   setLoading(true)
+  //   setProcessingVideo(true)
+    
+  //   try {
+  //     // Use the /inf endpoint to process everything in one request
+  //     const formData = new FormData();
+  //     formData.append('text', text);
+  //     if (audio) formData.append('audio', audio);
+      
+  //     console.log("Sending request to the /inf endpoint...");
+  //     // const response = await fetch('http://127.0.0.1:1000/inf', {
+  //     //   method: 'POST',
+  //     //   body: formData
+  //     // });
+  //     const response = await fetch('http://127.0.0.1:1234/inf', {
+  //       method: 'POST',
+  //       body: formData
+  //     });
+  //     if (image.image) formData.append('image', image.image);
+  //     const response2 = await fetch('http://127.0.0.1:5000/inf', {
+  //       method: 'POST',
+  //       body: formData
+  //     });
+      
+  //     if (!response.ok) {
+  //       throw new Error(`API failed with status: ${response.status}`);
+  //     }
+      
+  //     const videoBlob = await response.blob();
+  //     console.log("Received video response", videoBlob);
+      
+  //     if (outputVideo) {
+  //       URL.revokeObjectURL(outputVideo);
+  //     }
+      
+  //     const videoUrl = URL.createObjectURL(videoBlob);
+  //     setOutputVideo(videoUrl);
+      
+  //     toast.success("Video generated successfully", {
+  //       description: now,
+  //     });
+  //   } catch (error) {
+  //     console.error('Processing failed:', error)
+  //     toast.error("Video generation failed", {
+  //       description: error instanceof Error ? error.message : "Unknown error occurred"
+  //     });
+  //   } finally {
+  //     setLoading(false)
+  //     setProcessingVideo(false)
+  //   }
+  // }
+
   const handleUpload = async (e: React.FormEvent) => {
     e.preventDefault()
 
@@ -285,25 +347,44 @@ export default function UploadContentForm() {
     setProcessingVideo(true)
     
     try {
-      // Use the /inf endpoint to process everything in one request
-      const formData = new FormData();
-      formData.append('text', text);
-      if (image.image) formData.append('image', image.image);
-      if (audio) formData.append('audio', audio);
+      // Text to Audio API call
+      const T2A = new FormData();
+      T2A.append('text', text)
+      if (audio) T2A.append('audio', audio)
       
-      console.log("Sending request to the /inf endpoint...");
-      const response = await fetch('http://127.0.0.1:1000/inf', {
+      console.log("Sending text to audio request...")
+      const responseT2A = await fetch('http://127.0.0.1:1234/inf', {
         method: 'POST',
-        body: formData
+        body: T2A
       });
       
-      if (!response.ok) {
-        throw new Error(`API failed with status: ${response.status}`);
+      if (!responseT2A.ok) {
+        throw new Error(`Text to Audio API failed with status: ${responseT2A.status}`);
       }
       
-      const videoBlob = await response.blob();
+      const audioBlob = await responseT2A.blob();
+      console.log("Received audio response", audioBlob);
+      
+      // Avatar generation API call
+      const Avatar = new FormData();
+      if (image.image) Avatar.append('image', image.image)
+      if (audioBlob) Avatar.append('audio', audioBlob)
+      
+      console.log("Sending avatar generation request...")
+      const responseAvatar = await fetch("http://127.0.0.1:5000/run", {
+        method: 'POST',
+        body: Avatar
+      });
+      
+      if (!responseAvatar.ok) {
+        throw new Error(`Avatar API failed with status: ${responseAvatar.status}`);
+      }
+      
+      // Handle video response
+      const videoBlob = await responseAvatar.blob();
       console.log("Received video response", videoBlob);
       
+      // Create URL for video and set it to state
       if (outputVideo) {
         URL.revokeObjectURL(outputVideo);
       }
@@ -324,6 +405,7 @@ export default function UploadContentForm() {
       setProcessingVideo(false)
     }
   }
+
 
   const resetForm = () => {
     setText('')

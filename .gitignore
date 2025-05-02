@@ -6,7 +6,6 @@ env/
 venv/
 Anitalker-env/
 aniportrait-env/
-AZ-env/
 
 backend/models/outputs/
 backend/models/uploadsAZ/
