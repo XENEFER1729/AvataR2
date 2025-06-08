@@ -6,7 +6,8 @@ env/
 venv/
 Anitalker-env/
 aniportrait-env/
-
+aniportrait-env2/
+ 
 backend/models/outputs/
 backend/models/uploadsAZ/
 backend/models/AniTalker/output/

@@ -82,7 +82,7 @@ def main(args):
     conf.motion_dim = args.motion_dim
     
     if args.infer_type == 'mfcc_full_control':
-        conf.face_location=True
+        conf.face_location=True 
         conf.face_scale=True
         conf.mfcc = True
 
@@ -152,12 +152,12 @@ def main(args):
                 print('Please install transformers module first.')
                 exit(0)
             # hubert_model_path = 'C:/Users/papur/Desktop/AvatarAI Project/final/AvataR/backend/models/AniTalker/ckpts/chinese-hubert-large'
-            hubert_model_path = 'C:/Users/Vivek/OneDrive/Desktop/2-2/Avatar/website/githubSANTOSH/AvataR/AvataR/backend/models/AniTalker/ckpts/chinese-hubert-large'
-            print(os.getcwd())
+            hubert_model_path = 'C:/Users/Vivek/OneDrive/Desktop/2-2/Avatar/website/githubSANTOSH/AvataR2/AvataR2/backend/models/AniTalker/ckpts/chinese-hubert-large'
+            # print(os.getcwd())
             if not os.path.exists(hubert_model_path):
                 print('Please download the hubert weight into the ckpts path first.')
                 exit(0)
-            print('You did not extract the audio features in advance, extracting online now, which will increase processing delay')
+            # print('You did not extract the audio features in advance, extracting online now, which will increase processing delay')
 
             start_time = time.time()
 
